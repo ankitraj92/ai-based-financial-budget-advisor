@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#286a50">
+<title>Mint Money — a calmer way to understand your budget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f6f1;--card:#fff;--ink:#23342c;--soft:#5d6b62;--line:#e3e2d9;--green:#286a50;--dark:#1d543e;--lime:#dff17b;--pale:#edf3e6;--red:#b94a42;--shadow:0 12px 32px #35452e12}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:radial-gradient(ellipse at 88% 0,#edf1d8,transparent 30%),var(--bg);color:var(--ink);font:16px/1.6 'DM Sans',system-ui,sans-serif}
+h1,h2,h3{font-family:Manrope,'DM Sans',sans-serif;line-height:1.2;margin:0}
+.hidden{display:none!important}.wrap{max-width:1240px;margin:auto;padding:24px 20px 48px}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #82a992;outline-offset:2px}
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:#f8f6f1ee;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.navin{max-width:1240px;margin:auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font:800 20px Manrope;cursor:pointer;border:0;background:none;color:var(--ink);padding:0}
+.mark{width:38px;height:38px;border-radius:13px;background:var(--green);color:var(--lime);display:grid;place-items:center;font-size:21px}
+.links{display:flex;align-items:center;gap:6px;margin-left:auto}
+.links a,.links button.nl{color:var(--ink);text-decoration:none;font:600 15px 'DM Sans';padding:10px 12px;border-radius:10px;border:0;background:none;cursor:pointer;min-height:44px;display:inline-flex;align-items:center}
+.links a:hover,.links .nl:hover{background:var(--pale)}
+.menubtn{display:none;margin-left:auto;min-height:44px;min-width:44px;border:1px solid var(--line);background:#fff;border-radius:10px;font-size:20px;cursor:pointer}
+.btn{border:0;background:var(--green);color:#fff;border-radius:12px;padding:12px 18px;font:700 15px 'DM Sans';cursor:pointer;min-height:44px;transition:.15s}
+.btn:hover{background:var(--dark)}.btn:disabled{opacity:.6;cursor:wait}
+.btn.lime{background:var(--lime);color:var(--ink)}.btn.lime:hover{background:#d3e764}.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{background:var(--pale)}.wide{width:100%}
+.userbit{font-size:14px;color:var(--soft);padding:0 6px}
+/* messages */
+#msg{max-width:1240px;margin:12px auto 0;padding:0 20px}.note{border-radius:12px;padding:12px 15px;font-size:15px;background:#eaf1e8;border:1px solid #cfdfd0}.note.err{background:#fbeceb;border-color:#efc3bf;color:#7a2a24}.note.warn{background:#fff6dc;border-color:#ecd99a;color:#5d4a0c}
+/* landing */
+.landhero{border-radius:28px;background:#294f3e;color:#fff;padding:clamp(28px,6vw,64px);display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:center;margin-top:20px}
+.landhero h1{font-size:clamp(32px,5.5vw,56px);letter-spacing:-1.5px;margin:10px 0 14px}.landhero p{color:#dbe8de;font-size:18px;max-width:560px;margin:0 0 20px}
+.tag{font:700 13px 'DM Sans';letter-spacing:1.4px;color:var(--lime)}.ctas{display:flex;gap:12px;flex-wrap:wrap}.fine{font-size:14px!important;margin:16px 0 0!important;color:#c3d6c8!important}
+.art{font-size:110px;text-align:center;background:#ffffff14;border-radius:40% 60% 50% 50%;padding:30px 0}
+.sec{padding:36px 0 6px}.sec h2{font-size:28px;margin-bottom:10px}.sec>p{color:var(--soft);max-width:760px;margin:0 0 18px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.cards.four{grid-template-columns:repeat(4,1fr)}.cards.two{grid-template-columns:1fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:20px}.card h3{font-size:17px;margin-bottom:8px}.card p{color:var(--soft);margin:0}.card.dark{background:#294f3e;color:#e7eee6;border:0}.card.dark p{color:#dbe8de}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:4px 16px;margin:8px 0}summary{cursor:pointer;font-weight:700;padding:12px 0}details p{margin:0 0 14px;color:var(--soft)}
+.landfoot{text-align:center;color:var(--soft);font-size:14px;padding:30px 0 0}
+/* auth */
+.authwrap{display:grid;place-items:center;padding:30px 16px;min-height:70vh}.authcard{width:min(440px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:var(--shadow)}
+.authcard h2{font-size:26px;margin:14px 0 6px}.authcard>p{color:var(--soft);margin:0 0 18px}
+.mode{display:inline-block;font:700 13px 'DM Sans';border-radius:20px;padding:5px 12px}.mode.cloud{background:#e3f1e5;color:#1d543e}.mode.demo{background:#fff1c9;color:#6b5200}.mode.off{background:#fbeceb;color:#7a2a24}
+.lbl{display:block;font-weight:600;font-size:15px;margin:12px 0 5px}
+input{width:100%;border:1px solid #cfd3c8;border-radius:11px;padding:11px 12px;font:16px 'DM Sans';color:var(--ink);background:#fdfdfa;min-height:46px}
+.linkbtn{background:none;border:0;color:var(--green);text-decoration:underline;font:600 15px 'DM Sans';cursor:pointer;padding:10px 0;min-height:44px}
+.authnote{font-size:14px;color:var(--soft);margin:14px 0 4px}.or{text-align:center;color:var(--soft);font-size:14px;margin:14px 0 8px}
+/* dashboard */
+.hero{margin:6px 0 20px}.hero h1{font-size:clamp(28px,4vw,38px);letter-spacing:-1px;margin:6px 0}.hero p{color:var(--soft);margin:0}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.badge{background:#eaf1e8;color:#35573f;border-radius:20px;padding:5px 12px;font-size:14px;font-weight:600}
+.grid{display:grid;grid-template-columns:330px minmax(0,1fr) 360px;gap:18px;align-items:start}
+.head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}.head h2{font-size:18px}
+.field{margin-bottom:12px}.field label{display:flex;justify-content:space-between;gap:6px;font-weight:600;font-size:15px;margin-bottom:5px}.field label em{font-style:normal;font-weight:400;color:var(--soft);font-size:14px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hint{font-size:14px;color:var(--soft)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric{padding:16px}.metric .l{font-size:14px;color:var(--soft)}.metric strong{display:block;font:800 24px Manrope;margin:6px 0 2px}.metric small{font-size:14px;color:var(--soft)}
+.middle{display:flex;flex-direction:column;gap:16px;min-width:0}.rows{display:grid;gap:10px}.row{display:grid;grid-template-columns:96px 1fr 84px;gap:10px;align-items:center;font-size:15px}.track{height:9px;border-radius:8px;background:#eef0e9;overflow:hidden}.track i{display:block;height:100%;background:#8fb07a;border-radius:8px}.row b{text-align:right;font-weight:600}.row b.na{color:var(--soft);font-weight:400;font-size:13px}
+.meter{height:10px;border-radius:10px;background:#eef0e9;overflow:hidden;margin-top:14px}.meter div{height:100%;background:linear-gradient(90deg,#b4d28a,#286a50);transition:width .25s}
+.insight{background:#f2f5e8;border:0}.rulegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.rule{background:#fafaf7;border:1px solid var(--line);padding:12px;border-radius:12px;font-size:15px;color:#4d5b50}.rule b{display:block;color:var(--green);margin-bottom:3px}
+.bot{position:sticky;top:76px;padding:0;overflow:hidden}.bothead{background:#294f3e;color:#fff;padding:14px 16px}.bothead b{font:700 16px Manrope}.state{font-size:14px;color:#d2e1d6;margin-top:2px}
+.aibox{padding:12px 14px;border-bottom:1px solid var(--line);font-size:14px;color:var(--soft);background:#fafaf7}.aibox .btn{margin-top:8px;padding:9px 14px;font-size:14px}
+.prog{height:8px;background:#e5e8dc;border-radius:8px;overflow:hidden;margin-top:8px}.prog i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.chat{padding:14px;min-height:220px;max-height:420px;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.bubble{font-size:15px;line-height:1.55;padding:10px 13px;border-radius:14px;max-width:92%;white-space:pre-wrap}.bubble.ai{background:#f2f3eb;align-self:flex-start;border-bottom-left-radius:4px}.bubble.you{background:#dfeedd;align-self:flex-end;border-bottom-right-radius:4px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 10px}.chip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:8px 13px;font:600 14px 'DM Sans';cursor:pointer;min-height:40px}.chip:hover{background:var(--pale)}
+.chatform{display:flex;gap:8px;padding:0 14px 14px}.send{min-width:52px}.botfoot{border-top:1px solid var(--line);padding:10px 14px;font-size:13px;color:var(--soft)}
+.below{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.below .card p{font-size:15px}.out{margin-top:12px;font-size:15px}.out .rule{margin:8px 0}.out:empty{display:none}
+.save{font-size:14px;color:var(--soft)}.foot{text-align:center;color:var(--soft);font-size:14px;margin-top:24px}
+#loading{min-height:60vh;display:grid;place-items:center;text-align:center;color:var(--soft)}.spin{width:34px;height:34px;border:4px solid #dbe5d3;border-top-color:var(--green);border-radius:50%;animation:s .9s linear infinite;margin:0 auto 12px}@keyframes s{to{transform:rotate(360deg)}}
+@media(max-width:1120px){.grid{grid-template-columns:320px minmax(0,1fr)}.bot{position:static;grid-column:1/-1}.below{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){.menubtn{display:block}.links{display:none;position:absolute;left:0;right:0;top:100%;background:#f8f6f1;border-bottom:1px solid var(--line);padding:10px 16px 16px;flex-direction:column;align-items:stretch;gap:2px}.links.open{display:flex}.links a,.links .nl{width:100%}.nav{position:sticky}.navin{position:relative}.landhero{grid-template-columns:1fr}.art{display:none}.cards,.cards.four,.cards.two,.below{grid-template-columns:1fr}.cards.four{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr}.metric{display:grid;grid-template-columns:1fr auto;align-items:center}.metric strong{grid-row:1/3;grid-column:2;font-size:22px;margin:0}.rulegrid{grid-template-columns:1fr}.row{grid-template-columns:78px 1fr 78px}.wrap{padding:16px 14px 40px}.cards.four{grid-template-columns:1fr}}
+button,input,.chip,summary{font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}.brand,.metric strong{font-family:Manrope,'DM Sans',system-ui,sans-serif}.badge:empty{display:none}
+</style></head>
+<body>
+<nav class="nav"><div class="navin"><button class="brand" data-go="home"><span class="mark">✳</span>mint<span style="font-weight:500;color:#7a857d">money</span></button>
+<button class="menubtn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+<div class="links" id="links"><a href="#features" data-go="home" data-scroll="features">Features</a><a href="#how" data-go="home" data-scroll="how">How it works</a><a href="#learn" data-go="home" data-scroll="learn">AI &amp; fairness</a><a href="#faq" data-go="home" data-scroll="faq">FAQ</a>
+<span class="userbit hidden" id="userNav"></span><button class="btn lime" id="guestLink">Try as guest</button><button class="btn ghost" id="navAuth">Log in</button><button class="btn ghost hidden" id="logout">Log out</button></div></div></nav>
+<div id="msg" role="status" aria-live="polite"></div>
+
+<div id="loading"><div><div class="spin"></div><div>Loading Mint Money…</div></div></div>
+
+<main class="wrap hidden" id="homePage">
+<section class="landhero"><div><div class="tag">A FRIENDLY FINANCIAL LEARNING TOOL</div><h1>A calmer way to understand your money.</h1><p>Enter your monthly numbers, see what they add up to, set a savings goal, and ask a built-in coach to explain it in plain language.</p>
+<div class="ctas"><button class="btn lime" data-action="guest">Try as guest — no account</button><button class="btn ghost" data-go="auth">Log in or sign up</button></div>
+<p class="fine">Free to explore · No bank connection · Guest budgets stay in this browser</p></div><div class="art" aria-hidden="true">🌱</div></section>
+<section class="sec" id="features"><h2>One place to make sense of your month</h2><p>Start with rough estimates and update them whenever life changes.</p><div class="cards">
+<div class="card"><h3>🧭 Monthly snapshot</h3><p>See what is left, your savings rate, and which categories take the biggest share.</p></div>
+<div class="card"><h3>🎯 Savings goals</h3><p>Turn a target and timeline into an approximate monthly amount.</p></div>
+<div class="card"><h3>🔍 What-if &amp; options</h3><p>Preview a savings change, or search small cuts in flexible categories.</p></div>
+<div class="card"><h3>📥 CSV download</h3><p>Keep a copy of your entries or open them in a spreadsheet.</p></div>
+<div class="card"><h3>💬 AI coach</h3><p>Ask questions in everyday words. It answers from the numbers you entered.</p></div>
+<div class="card"><h3>🪴 Learn as you go</h3><p>Every suggestion shows its reasoning. Benchmarks are examples, not rules.</p></div></div></section>
+<section class="sec" id="how"><h2>How it works</h2><div class="cards four">
+<div class="card"><h3>1 · Add estimates</h3><p>Enter take-home income and the costs you know. Anything left blank stays "not entered", never zero.</p></div>
+<div class="card"><h3>2 · Read the snapshot</h3><p>See income minus entered spending and your savings rate.</p></div>
+<div class="card"><h3>3 · Explore</h3><p>Try a goal, a what-if, or a savings search. None of these change your budget unless you apply them.</p></div>
+<div class="card"><h3>4 · Ask the coach</h3><p>Ask follow-up questions. Verify the arithmetic yourself.</p></div></div></section>
+<section class="sec" id="learn"><h2>The AI, privacy and fairness</h2><div class="cards two">
+<div class="card dark"><h3>What the AI does — and doesn't</h3><p>Plain code does all arithmetic, searches and feasibility checks. An optional small language model (Qwen2.5 0.5B, running in your browser) only rephrases the checked answer. It can be wrong, doesn't see your bank, and doesn't know local costs. Without it, the coach still answers using the same calculations.</p></div>
+<div class="card"><h3>Privacy &amp; fairness</h3><p>No bank credentials or personal details are requested. Guest budgets stay in this browser. With a cloud account, each budget row is protected so only its owner can read it. Everyone gets the same guidance. A 20% savings rate is an example benchmark, not a requirement; high living costs, dependants, debt and irregular income can make it unrealistic. Debt isn't ranked because interest rates aren't collected.</p></div></div></section>
+<section class="sec" id="guide"><h2>Budget guide</h2><p>A budget is a snapshot of money in and money out. "Unplanned" money is income minus what you entered. It isn't automatically spare: annual bills, medical costs or family support may need it. Some courses use a 50/30/20 split for needs, wants and savings. Treat it as a prompt, not a prescription.</p></section>
+<section class="sec faq" id="faq"><h2>Frequently asked questions</h2>
+<details><summary>Can I use this without an account?</summary><p>Yes. Choose "Try as guest". Your numbers are saved only in this browser.</p></details>
+<details><summary>Does the AI see my bank account?</summary><p>No. There is no bank connection. It only sees what you type.</p></details>
+<details><summary>Why does the AI need a download?</summary><p>The model runs on your device instead of a remote service. It is about 500 MB, downloads once only if you choose to enable it, and needs a recent Chrome or Edge with WebGPU.</p></details>
+<details><summary>Can this replace a financial advisor?</summary><p>No. It's an educational prototype, not financial, tax, credit or investment advice.</p></details></section>
+<div class="landfoot">Educational budgeting support · Not financial, investment, tax, or credit advice</div></main>
+
+<main class="authwrap hidden" id="authPage"><div class="authcard">
+<span class="mode" id="modeBadge"></span><h2 id="authTitle">Welcome back</h2><p id="authDesc"></p>
+<form id="authForm" novalidate><div id="nameRow" class="hidden"><label class="lbl" for="authName">Your name (optional)</label><input id="authName" autocomplete="name"></div>
+<div id="emailRow"><label class="lbl" for="authEmail">Email address</label><input id="authEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="you@example.com"></div>
+<div id="passRow"><label class="lbl" for="authPassword" id="passLbl">Password</label><input id="authPassword" type="password" minlength="8" placeholder="At least 8 characters"></div>
+<div id="pass2Row" class="hidden"><label class="lbl" for="authPassword2">Confirm new password</label><input id="authPassword2" type="password" autocomplete="new-password"></div>
+<p class="authnote" id="authNotice" role="status" aria-live="polite"></p>
+<button class="btn wide" id="authSubmit">Log in</button></form>
+<button class="linkbtn" id="authSwitch"></button><br><button class="linkbtn" id="recoverLink">Forgot your password?</button><button class="linkbtn hidden" id="resendLink">Resend confirmation email</button>
+<div class="or">or</div><button class="btn lime wide" data-action="guest">Continue as guest</button><br><button class="linkbtn" data-go="home">← Back to home</button></div></main>
+
+<main class="wrap hidden" id="dashboard"><div id="advisor">
+<section class="hero"><div class="tag" style="color:var(--green)">YOUR BUDGET ADVISOR</div><h1>Make your money feel more manageable.</h1><p>Enter what you know. Anything you leave blank is treated as "not entered", never as zero.</p><div class="badges"><span class="badge" id="whereBadge">🔒 Saved on this device</span><span class="badge save" id="saveState"></span></div></section>
+<section class="grid">
+<div class="card"><div class="head"><h2>Your monthly budget</h2></div>
+<div class="field"><label for="income">Take-home income <em>after tax · ₹ per month</em></label><input id="income" type="number" inputmode="decimal" min="0" placeholder="e.g. 65000"></div>
+<div class="pair"><div class="field"><label for="home">Home</label><input id="home" type="number" inputmode="decimal" min="0" placeholder="Not entered"></div><div class="field"><label for="food">Food</label><input id="food" type="number" inputmode="decimal" min="0" placeholder="Not entered"></div>
+<div class="field"><label for="travel">Travel</label><input id="travel" type="number" inputmode="decimal" min="0" placeholder="Not entered"></div><div class="field"><label for="bills">Bills</label><input id="bills" type="number" inputmode="decimal" min="0" placeholder="Not entered"></div>
+<div class="field"><label for="debt">Debt payments</label><input id="debt" type="number" inputmode="decimal" min="0" placeholder="Not entered"></div><div class="field"><label for="savings">Savings</label><input id="savings" type="number" inputmode="decimal" min="0" placeholder="Not entered"></div></div>
+<div class="field"><label for="other">Other spending</label><input id="other" type="number" inputmode="decimal" min="0" placeholder="Not entered"></div>
+<div class="pair"><button class="btn lime" id="smartEstimate" title="Fills categories you haven't typed yourself">Auto-estimate</button><button class="btn ghost" id="sample">Sample numbers</button></div>
+<p class="hint" id="estimateNote" style="margin:10px 0 0">Auto-estimate fills only categories you haven't typed yourself, as editable starting points. It never guesses debt.</p>
+<button class="btn wide" id="update" style="margin-top:12px">Explain my budget</button><button class="linkbtn" id="clearAll">Clear all entries</button></div>
+<div class="middle"><div class="metrics"><div class="card metric"><div class="l">Still unplanned</div><strong id="left">—</strong><small id="leftSub">income minus entries</small></div><div class="card metric"><div class="l">Going to savings</div><strong id="rate">—</strong><small>of monthly income</small></div><div class="card metric"><div class="l">This month</div><strong id="status" style="font-size:19px">Add income</strong><small id="statusSub">based on what you entered</small></div></div>
+<div class="card"><div class="head"><h2>Your money at a glance</h2><span class="hint">monthly · ₹</span></div><div class="rows" id="rows"></div><div class="meter"><div id="meter" style="width:0"></div></div><p class="hint" id="incomplete" style="margin:8px 0 0">Spent and saved compared with your income</p></div>
+<div class="card insight"><div class="head"><h2>A small idea 💡</h2></div><p id="idea" style="margin:0"></p></div>
+<div class="card"><div class="head"><h2>How the guide reasons</h2></div><div class="rulegrid"><div class="rule"><b>1 · Check the balance</b>Does your entered spending fit inside income?</div><div class="rule"><b>2 · Explore a goal</b>Could some unplanned money help you save more?</div><div class="rule"><b>3 · Respect real life</b>Benchmarks are prompts, not rules.</div><div class="rule"><b>4 · You decide</b>The guide offers options; you choose.</div></div></div></div>
+<aside class="card bot" aria-label="Mint AI coach"><div class="bothead"><b>✳ Mint coach</b><div class="state" id="botstate">Answers from your numbers · AI wording is optional</div></div>
+<div class="aibox" id="aibox"><b>Optional: plain-language AI wording.</b> Enabling it downloads a ~500 MB model once (first load can take several minutes on a slow connection; later loads use the browser cache). Needs recent Chrome or Edge with WebGPU. The coach works without it.<br><button class="btn" id="enableAI">Enable AI wording (~500 MB)</button><div class="prog hidden" id="prog"><i id="progBar"></i></div></div>
+<div class="chat" id="chat" aria-live="polite"><div class="bubble ai">Hi! I'm your budget coach. Ask me about your budget, savings rate, goals or what-ifs. I only use numbers you've entered and I'll ask if something is unclear.</div></div>
+<div class="chips"><button class="chip">Can I save more?</button><button class="chip">Why is my budget tight?</button><button class="chip">What should my budget be for expenses?</button></div>
+<form class="chatform" id="chatform"><input id="question" placeholder="Ask about your budget…" autocomplete="off" aria-label="Your question"><button class="btn send" id="sendBtn" aria-label="Send">➤</button></form>
+<div class="botfoot">Educational guidance only. The AI can make mistakes; amounts come from plain code.</div></aside></section>
+<section class="below">
+<div class="card"><h3>Compare savings options</h3><p>Set a monthly savings target. I test cuts in food, travel and other spending in ₹500 steps. Home, bills and debt stay unchanged.</p><label class="lbl" for="searchTarget">Savings target · ₹ per month</label><input id="searchTarget" type="number" inputmode="decimal" min="0" step="500"><button class="btn ghost" id="searchOptions" style="margin-top:10px">Find options</button><div class="out" id="searchResults" aria-live="polite"></div></div>
+<div class="card"><h3>Plan toward a savings goal</h3><p>A simple estimate with no interest or fees.</p><label class="lbl" for="goalAmount">Goal amount · ₹</label><input id="goalAmount" type="number" inputmode="decimal" min="0"><label class="lbl" for="goalMonths">Months</label><input id="goalMonths" type="number" inputmode="numeric" min="1"><label class="lbl" for="goalHave">Already saved for this goal · ₹ <span class="hint">(optional)</span></label><input id="goalHave" type="number" inputmode="decimal" min="0"><button class="btn ghost" id="goalCalc" style="margin-top:10px">Calculate monthly amount</button><div class="out" id="goalResult" aria-live="polite"></div></div>
+<div class="card"><h3>What if you save a little more?</h3><p>Preview a change without altering your budget.</p><label class="lbl" for="whatIf">Extra savings · ₹ per month</label><input id="whatIf" type="number" inputmode="decimal" min="0" step="500"><button class="btn ghost" id="whatIfCalc" style="margin-top:10px">Preview this change</button><div class="out" id="whatIfResult" aria-live="polite"></div>
+<h3 style="margin-top:22px">Take your budget with you</h3><p>Download what you entered as a CSV.</p><button class="btn ghost" id="downloadCsv" style="margin-top:10px">Download CSV ↓</button></div></section>
+<p class="foot">Made for learning about budgets · No bank connection · Not investment, credit, or tax advice</p></div></main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script><script src="logic.js"></script>
+<script>
+const $=id=>document.getElementById(id),L=window.MintLogic,{KEYS,CATS,inr}=L,EST=['home','food','travel','bills','savings','other'];
+const mem={},store={get(k){try{return localStorage.getItem(k)}catch(_){return mem[k]??null}},set(k,v){try{localStorage.setItem(k,v)}catch(_){mem[k]=String(v)}},del(k){try{localStorage.removeItem(k)}catch(_){}delete mem[k]}};
+const WEBLLM='https://esm.run/@mlc-ai/web-llm@0.2.79',MODEL='Qwen2.5-0.5B-Instruct-q4f16_1-MLC';
+let manual={},mode='none',user=null,db=null,authView='login',engine=null,pending=null,saveTimer,busy=false,recovering=false;
+/* ---------- config / Supabase ---------- */
+const initialHash=location.hash,cfg=window.MINT_CONFIG||{};let cfgProblem='';
+function secretKey(k){if(/^sb_secret_/.test(k))return true;try{return JSON.parse(atob(k.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).role==='service_role'}catch(_){return false}}
+const cloudWanted=!!(cfg.supabaseUrl&&cfg.supabaseAnonKey);
+if(cloudWanted){if(secretKey(cfg.supabaseAnonKey))cfgProblem='config.js contains a secret/service-role key. Remove it immediately and use only the public (anon/publishable) key. Cloud login is disabled.';
+ else if(!window.supabase)cfgProblem='The Supabase library could not load (check your internet connection). Cloud login is unavailable; guest mode still works.';
+ else try{db=window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}})}catch(e){cfgProblem='Supabase settings look invalid: '+e.message}}
+const authMode=db?'cloud':cloudWanted?'off':'demo';
+/* ---------- helpers ---------- */
+function flash(text,kind){const m=$('msg');m.innerHTML='';if(!text)return;const d=document.createElement('div');d.className='note '+(kind||'');d.textContent=text;m.append(d);if(kind!=='err'&&kind!=='warn')setTimeout(()=>{if(m.firstChild===d)m.innerHTML=''},6000)}
+function raw(){return Object.fromEntries(KEYS.map(k=>[k,$(k).value]))}
+function snap(){return L.summarize(raw())}
+function setValues(o){KEYS.forEach(k=>$(k).value=o&&o[k]!==null&&o[k]!==undefined?o[k]:'');manual=Object.assign({},o&&o._manual||{})}
+/* ---------- pages ---------- */
+function show(p,v){['home','auth','dashboard'].forEach(x=>$(x==='home'?'homePage':x==='auth'?'authPage':'dashboard').classList.toggle('hidden',x!==p));$('loading').classList.add('hidden');
+ if(p==='auth'){authView=v||'login';drawAuth()}
+ const inApp=p==='dashboard',loggedIn=!!user;$('userNav').textContent=user?user.email:inApp?'Guest':'';$('userNav').classList.toggle('hidden',!inApp);
+ $('logout').classList.toggle('hidden',!loggedIn);$('navAuth').classList.toggle('hidden',loggedIn);$('guestLink').classList.toggle('hidden',inApp);
+ $('whereBadge').textContent=mode==='cloud'?'☁️ Saved to your account':mode==='demo'?'⚠️ Local demo account — this browser only':'🔒 Guest — saved only in this browser';
+ $('links').classList.remove('open');$('menuBtn').setAttribute('aria-expanded','false');window.scrollTo(0,0)}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-go],[data-action]');if(!t)return;if(t.dataset.action==='guest'){e.preventDefault();enterGuest();return}
+ if(t.dataset.go){e.preventDefault();show(t.dataset.go);if(t.dataset.scroll)setTimeout(()=>$(t.dataset.scroll).scrollIntoView(),30)}});
+$('menuBtn').onclick=()=>{const o=$('links').classList.toggle('open');$('menuBtn').setAttribute('aria-expanded',o)};
+$('guestLink').onclick=enterGuest;$('navAuth').onclick=()=>show('auth','login');$('logout').onclick=signOut;
+/* ---------- guest ---------- */
+function enterGuest(){if(!user){mode='guest';let v=null;try{v=JSON.parse(store.get('mint_guest_budget')||'null')}catch(_){store.del('mint_guest_budget')}setValues(v);render()}show('dashboard')}
+/* ---------- render ---------- */
+function render(){const s=snap(),v=s.v;
+ $('left').textContent=s.left===null?'—':inr(s.left);$('left').style.color=s.left<0?'var(--red)':'';
+ $('leftSub').textContent=s.left===null?'enter income to see this':'income minus what you entered';
+ $('rate').textContent=s.rate===null?'—':Math.round(s.rate*100)+'%';
+ $('status').textContent=!s.hasIncome?'Add income':s.left<0?'Over income':s.rate!==null&&s.rate>=.2?'Saving well':'Looking okay';
+ $('statusSub').textContent=s.left<0?'entered spending is above income':s.rate!==null&&s.rate>=.2?'at or above the example 20%':'based on what you entered';
+ $('rows').innerHTML=CATS.map(k=>`<div class="row"><span>${L.LABEL[k].replace(' spending','').replace(' payments','')}</span><div class="track"><i style="width:${s.hasIncome&&v[k]!==null?Math.min(100,v[k]/v.income*100):0}%"></i></div>${v[k]===null?'<b class="na">not entered</b>':'<b>'+inr(v[k])+'</b>'}</div>`).join('');
+ $('meter').style.width=(s.hasIncome?Math.min(100,s.total/v.income*100):0)+'%';$('meter').style.background=s.left<0?'var(--red)':'';
+ $('incomplete').textContent=s.missing.length?'Not entered yet: '+s.missing.map(k=>L.LABEL[k].toLowerCase()).join(', ')+'. Totals only include what you typed.':'Spent and saved compared with your income';
+ let idea;if(!s.hasIncome)idea='Start with your monthly take-home income. Round numbers are fine.';
+ else if(s.left<0)idea=`Your entries are ${inr(-s.left)} above income. Check each amount is monthly and decide which costs are flexible. I won't assume essentials can be cut.`;
+ else{const gap=v.savings===null?null:Math.max(0,Math.round(v.income*.2-v.savings));idea=gap===null?`You haven't entered savings yet. Entered spending leaves ${inr(s.left)} unplanned. That isn't automatically safe to spend or save; upcoming irregular costs may need it.`:gap===0?'Your savings meet the example 20% benchmark. Keep in mind unplanned money may be needed for irregular costs.':`The example 20% goal would need ${inr(gap)} more in savings, if that fits your situation. Unplanned money (${inr(s.left)}) isn't automatically free to move; check upcoming bills first.`}
+ $('idea').textContent=idea}
+KEYS.forEach(k=>$(k).addEventListener('input',()=>{if(EST.includes(k)||k==='debt')manual[k]=$(k).value!=='';if(k==='income'&&EST.some(x=>$(x).value!==''&&!manual[x])&&L.num($('income').value)>0)autoEstimate(false);else render();queueSave()}));
+function autoEstimate(force){if(force)EST.forEach(k=>{if($(k).value==='')delete manual[k]});const inc=L.num($('income').value);if(!(inc>0)){flash('Enter your take-home income first, then try again.','warn');return}
+ const fixed={};[...EST,'debt'].forEach(k=>{const n=L.num($(k).value);if(manual[k]&&n!==null)fixed[k]=n});
+ const e=L.estimate(inc,fixed);EST.forEach(k=>{if(fixed[k]!==undefined)return;if(force||$(k).value!=='')$(k).value=e[k]??''});
+ $('estimateNote').textContent=Object.keys(fixed).length?'Amounts you typed stay fixed; other estimates adjust to fit income. Debt is never guessed.':'Starting points only: scaled to income, capped, and kept within income. Edit any amount.';render()}
+$('smartEstimate').onclick=()=>{autoEstimate(true);queueSave()};
+$('sample').onclick=()=>{const vals=[65000,18000,9000,4000,5000,0,8000,7000];KEYS.forEach((k,i)=>$(k).value=vals[i]);manual={};render();queueSave();flash('Sample numbers loaded. Replace them with your own.')};
+$('clearAll').onclick=()=>{if(confirm('Clear all entries?')){setValues(null);render();queueSave()}};
+$('update').onclick=()=>{render();send('Explain my budget')};
+/* ---------- tools ---------- */
+$('searchOptions').onclick=()=>{const out=$('searchResults'),t=L.num($('searchTarget').value);if(t===null){out.textContent='Enter a monthly savings target (₹).';return}
+ const s=snap(),r=L.searchOptions(s,t);
+ if(r.status==='need_income'){out.textContent='Add your monthly income first.';return}if(r.status==='need_savings'){out.textContent='Enter your current monthly savings first, so I can see how far you are from the target.';return}
+ if(r.status==='met'){out.textContent=`Your entered savings already meet ${inr(t)} a month. No cuts needed.`;return}
+ const unk=r.unknown.length?` Not entered, so not counted: ${r.unknown.join(', ')}.`:'';
+ if(r.status==='infeasible'){out.textContent=`The target needs ${inr(r.need)} more per month, but food, travel and other spending can free at most ${inr(r.maxCut)}. Home, bills and debt were left unchanged. Lower the target or review your entries.`+unk;return}
+ out.innerHTML=`<p class="hint">${r.options.length} option${r.options.length>1?'s':''}, smallest change first. Home, bills and debt protected.${unk.replace(/</g,'&lt;')}${r.left<0?' Your entries are already above income; moving money to savings does not fix that.':''}</p>`+r.options.map((o,i)=>`<div class="rule"><b>Option ${'ABC'[i]} · reduce ${inr(o.sum)} in total</b>${r.cats.map((k,j)=>o.cuts[j]?L.LABEL[k]+': −'+inr(o.cuts[j]):'').filter(Boolean).join(' · ')}<br>Savings after change: ${inr(s.v.savings+o.sum)}<br><button class="chip" data-opt="${i}" style="margin-top:8px">Apply this option</button></div>`).join('');
+ out.querySelectorAll('[data-opt]').forEach(b=>b.onclick=()=>{const o=r.options[+b.dataset.opt];r.cats.forEach((k,j)=>{if(o.cuts[j]){$(k).value=Math.max(0,Number($(k).value)-o.cuts[j]);manual[k]=true}});$('savings').value=Number($('savings').value)+o.sum;manual.savings=true;render();queueSave();out.textContent='Applied. Review the amounts and change anything that doesn\'t fit.'})};
+$('goalCalc').onclick=()=>{const out=$('goalResult'),a=L.num($('goalAmount').value),m=Number($('goalMonths').value),h=L.num($('goalHave').value);
+ if(!a||!(m>=1)){out.textContent='Enter a goal amount and a number of months.';return}const g=L.goalPlan(snap(),a,m,h||0);
+ out.textContent=`You'd need about ${inr(g.per)} a month for ${m} months`+(h?` after counting ${inr(h)} already saved`:' (nothing counted as already saved)')+'. '+(g.current===null?'Enter your monthly savings to compare.':g.gap>0?`That is ${inr(g.gap)} more than the ${inr(g.current)} you currently enter.`:`Your entered savings of ${inr(g.current)} already cover that.`)+(g.left!==null?` Unplanned this month: ${inr(g.left)}, which isn't automatically free to use.`:'')};
+$('whatIfCalc').onclick=()=>{const out=$('whatIfResult'),x=L.num($('whatIf').value),w=x===null?null:L.whatIf(snap(),x);if(x===null){out.textContent='Enter an extra amount.';return}if(!w){out.textContent='Add your income first.';return}
+ out.textContent=`Adding ${inr(x)} to savings would leave ${w.newLeft>=0?inr(w.newLeft)+' unplanned':inr(-w.newLeft)+' above income'} and savings at ${Math.round(w.newRate*100)}% of income.`+(w.savingsMissing?' Your current savings aren\'t entered, so that counts only the extra.':'')+' Your budget is unchanged.'};
+$('downloadCsv').onclick=()=>{const s=snap(),v=s.v,r=[['Item','Monthly amount (INR)'],...KEYS.map(k=>[L.LABEL[k],v[k]===null?'':v[k]]),['Total entered spending',s.entered.length?s.total:''],['Unplanned after entries',s.left===null?'':s.left],['Note','Blank = not entered']];
+ const csv=r.map(x=>x.map(c=>'"'+String(c).replaceAll('"','""')+'"').join(',')).join('\r\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='monthly-budget.csv';document.body.append(a);a.click();a.remove();URL.revokeObjectURL(a.href)};
+/* ---------- coach ---------- */
+function bubble(t,who){const e=document.createElement('div');e.className='bubble '+who;e.textContent=t;$('chat').append(e);$('chat').scrollTop=$('chat').scrollHeight;return e}
+const numsIn=t=>(t.replace(/,/g,'').match(/\d+(\.\d+)?/g)||[]).map(Number);
+async function send(q){q=q.trim();if(!q||busy)return;busy=true;$('sendBtn').disabled=true;$('question').value='';bubble(q,'you');const s=snap(),p=L.coach(q,s,pending),el=bubble(p.text,'ai');
+ pending=p.pending||null;if(p.action&&p.action.setIncome){$('income').value=p.action.setIncome;render();queueSave()}
+ if(engine&&!p.unknown){try{el.textContent=p.text;const allowed=new Set(numsIn(p.text)),ctx=KEYS.map(k=>L.LABEL[k]+': '+(s.v[k]===null?'not entered':s.v[k])).join('; ');
+  const res=await engine.chat.completions.create({messages:[{role:'system',content:'You are Mint, a friendly educational budget coach. Rewrite the VERIFIED ANSWER in natural, warm English in at most 70 words. Keep every number exactly as written and add no new numbers, expenses or advice. If it asks a question, keep it as a question. Never suggest leftover money is safe to spend or save.'},{role:'user',content:`Budget (INR): ${ctx}\nUser asked: ${q}\nVERIFIED ANSWER: ${p.text}`}],temperature:.2,max_tokens:140});
+  const out=(res.choices?.[0]?.message?.content||'').trim();if(out&&numsIn(out).every(n=>allowed.has(n)))el.textContent=out}catch(e){console.warn('AI wording failed, showing calculated answer',e)}}
+ busy=false;$('sendBtn').disabled=false}
+$('chatform').onsubmit=e=>{e.preventDefault();send($('question').value)};document.querySelectorAll('.chips .chip').forEach(b=>b.onclick=()=>send(b.textContent));
+$('enableAI').onclick=async()=>{const st=$('botstate'),bar=$('progBar');if(!navigator.gpu){st.textContent='AI wording unavailable here';flash('This browser has no WebGPU, so AI wording can\'t run. The coach still answers from your numbers. Try recent Chrome or Edge on a computer.','warn');return}
+ $('enableAI').disabled=true;$('prog').classList.remove('hidden');st.textContent='Downloading model (first time only) — keep this tab open…';
+ try{const pkg=await import(WEBLLM);engine=await pkg.CreateMLCEngine(MODEL,{initProgressCallback:p=>{bar.style.width=Math.round((p.progress||0)*100)+'%';st.textContent=(p.text||'Loading…').slice(0,90)}});st.textContent='AI wording ready · runs on this device';$('aibox').classList.add('hidden')}
+ catch(e){engine=null;$('enableAI').disabled=false;$('prog').classList.add('hidden');st.textContent='AI wording failed to load';flash('Could not load the AI model: '+(e.message||e)+'. Check your connection and browser, then retry. The coach still works without it.','err')}};
+/* ---------- saving ---------- */
+function payload(){const o=Object.fromEntries(KEYS.map(k=>[k,L.num($(k).value)]));o._manual=manual;return o}
+function queueSave(){if(mode==='none')return;clearTimeout(saveTimer);$('saveState').textContent='Saving…';saveTimer=setTimeout(saveNow,600)}
+async function saveNow(){try{const d=payload();if(mode==='guest')store.set('mint_guest_budget',JSON.stringify(d));
+ else if(mode==='demo'){const k='mint_demo_'+user.email,u=JSON.parse(store.get(k)||'{}');u.budget=d;store.set(k,JSON.stringify(u))}
+ else{const{error}=await db.from('budgets').upsert({user_id:user.id,monthly_data:d,updated_at:new Date().toISOString()});if(error)throw error}$('saveState').textContent='Saved ✓'}
+ catch(e){console.error(e);$('saveState').textContent='Not saved';flash('Your latest changes could not be saved: '+(e.message||'unknown error')+'. Download the CSV to keep a copy.','err')}}
+async function loadCloud(){const{data,error}=await db.from('budgets').select('monthly_data').eq('user_id',user.id).maybeSingle();if(error){flash('Signed in, but your saved budget could not be loaded: '+error.message,'err');return}setValues(data&&data.monthly_data);render()}
+/* ---------- auth ---------- */
+const AUTHTXT={login:['Welcome back','Log in to open your saved budget.','Log in','New here? Create an account'],signup:['Create your account','Sign up to save your budget and open it on other devices.','Create account','Already have an account? Log in'],forgot:['Reset your password','Enter your email and we\'ll send a reset link.','Send reset link','← Back to log in'],recover:['Choose a new password','Enter a new password for your account.','Update password','']};
+function drawAuth(){const t=AUTHTXT[authView],su=authView==='signup',fg=authView==='forgot',rc=authView==='recover';$('authTitle').textContent=t[0];$('authDesc').textContent=t[1];$('authSubmit').textContent=t[2];$('authSwitch').textContent=t[3];$('authSwitch').classList.toggle('hidden',rc);
+ $('nameRow').classList.toggle('hidden',!su);$('emailRow').classList.toggle('hidden',rc);$('passRow').classList.toggle('hidden',fg);$('pass2Row').classList.toggle('hidden',!rc);$('recoverLink').classList.toggle('hidden',authView!=='login'||authMode!=='cloud');$('resendLink').classList.add('hidden');
+ $('passLbl').textContent=rc?'New password':'Password';$('authPassword').autocomplete=su||rc?'new-password':'current-password';
+ const b=$('modeBadge');b.className='mode '+authMode;b.textContent=authMode==='cloud'?'🔐 Secure account (Supabase)':authMode==='demo'?'⚠️ Local demo account — this browser only':'Cloud login unavailable';
+ $('authSubmit').disabled=authMode==='off';
+ setNote(authMode==='cloud'?(su?'We\'ll email you a link to confirm your address before you can log in.':''):authMode==='demo'?'Demo mode: the account and budget are stored only in this browser, with no email verification or password reset. This is NOT secure and not for real use. Use guest mode if you just want to try the app. Real accounts need Supabase setup (see README).':cfgProblem)}
+function setNote(t,err){$('authNotice').textContent=t;$('authNotice').style.color=err?'var(--red)':''}
+$('authSwitch').onclick=()=>{authView=authView==='login'?'signup':'login';drawAuth()};$('recoverLink').onclick=()=>{authView='forgot';drawAuth()};
+const redirect=()=>location.origin+location.pathname;
+async function digest(pw,saltHex){const salt=saltHex?Uint8Array.from(saltHex.match(/../g).map(h=>parseInt(h,16))):crypto.getRandomValues(new Uint8Array(16));const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:100000,hash:'SHA-256'},key,256),hex=a=>[...new Uint8Array(a)].map(x=>x.toString(16).padStart(2,'0')).join('');return{salt:hex(salt),hash:hex(bits)}}
+async function demoAuth(email,pw){const k='mint_demo_'+email,old=JSON.parse(store.get(k)||'null');
+ if(authView==='signup'){if(old)throw Error('A demo account with this email already exists in this browser. Try logging in.');const h=await digest(pw);store.set(k,JSON.stringify({email,name:$('authName').value.trim(),...h,budget:payload()}));user={id:'demo-'+email,email};setValues(JSON.parse(store.get(k)).budget)}
+ else{if(!old)throw Error('No demo account for this email in this browser. Create one, or continue as guest.');const h=await digest(pw,old.salt);if(h.hash!==old.hash)throw Error('Email or password is incorrect.');user={id:'demo-'+email,email};setValues(old.budget)}
+ store.set('mint_demo_session',email);mode='demo';render()}
+function friendly(e){const m=(e&&e.message)||'';if(/Invalid login/i.test(m))return'Email or password is incorrect. If you just signed up, confirm your email first.';if(/not confirmed/i.test(m))return'Please confirm your email first. Check your inbox (and spam) for the link.';if(/already registered/i.test(m))return'That email already has an account. Try logging in.';if(/rate limit|too many/i.test(m))return'Too many attempts. Please wait a few minutes and try again.';if(/fetch|network/i.test(m))return'Could not reach the server. Check your connection and try again.';return m||'Something went wrong. Please try again.'}
+$('authForm').onsubmit=async e=>{e.preventDefault();if(authMode==='off')return;const email=$('authEmail').value.trim().toLowerCase(),pw=$('authPassword').value;setNote('');
+ const need=authView==='recover'?false:!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);if(need){setNote('Enter a complete email address, like name@example.com.',true);return}
+ if(authView!=='forgot'&&authView!=='recover'&&pw.length<8){setNote('Use a password of at least 8 characters.',true);return}
+ $('authSubmit').disabled=true;const label=$('authSubmit').textContent;$('authSubmit').textContent='Please wait…';
+ try{if(authMode==='demo'){await demoAuth(email,pw);show('dashboard');flash('Local demo account active. It is stored only in this browser.','warn')}
+ else if(authView==='signup'){const r=await db.auth.signUp({email,password:pw,options:{emailRedirectTo:redirect(),data:{name:$('authName').value.trim()}}});if(r.error)throw r.error;
+  if(r.data.user&&r.data.user.identities&&!r.data.user.identities.length){setNote('That email may already have an account. Try logging in or resetting your password.',true)}
+  else if(r.data.session){await startSession(r.data.session)}else{setNote('Almost done! We sent a confirmation link to '+email+'. Open it, then log in.');$('resendLink').classList.remove('hidden')}}
+ else if(authView==='login'){const r=await db.auth.signInWithPassword({email,password:pw});if(r.error){if(/not confirmed/i.test(r.error.message))$('resendLink').classList.remove('hidden');throw r.error}await startSession(r.data.session)}
+ else if(authView==='forgot'){const r=await db.auth.resetPasswordForEmail(email,{redirectTo:redirect()});if(r.error)throw r.error;setNote('If that email has an account, a reset link is on its way. Check your inbox and spam folder.')}
+ else if(authView==='recover'){if(pw.length<8||pw!==$('authPassword2').value){setNote(pw.length<8?'Use at least 8 characters.':'The two passwords don\'t match.',true);return}const r=await db.auth.updateUser({password:pw});if(r.error)throw r.error;recovering=false;$('authPassword').value=$('authPassword2').value='';flash('Password updated. You\'re logged in.');await startSession((await db.auth.getSession()).data.session)}}
+ catch(err){setNote(friendly(err),true)}finally{$('authSubmit').disabled=false;$('authSubmit').textContent=label}};
+$('resendLink').onclick=async()=>{const email=$('authEmail').value.trim();if(!email){setNote('Enter your email above first.',true);return}const{error}=await db.auth.resend({type:'signup',email,options:{emailRedirectTo:redirect()}});setNote(error?friendly(error):'Confirmation email sent again. Check your inbox and spam.',!!error)};
+async function startSession(session){if(!session){return}user=session.user;mode='cloud';$('authPassword').value='';await loadCloud();show('dashboard')}
+async function signOut(){try{if(db)await db.auth.signOut();store.del('mint_demo_session')}catch(e){flash('Log out hit a problem: '+e.message,'err')}user=null;mode='none';setValues(null);render();show('home')}
+/* ---------- boot ---------- */
+(async function boot(){setValues(null);render();if(cfgProblem)flash(cfgProblem,'err');
+ try{if(db){const hash=initialHash;const{data,error}=await db.auth.getSession();if(error)throw error;
+  db.auth.onAuthStateChange((ev,session)=>{if(ev==='PASSWORD_RECOVERY'){recovering=true;setTimeout(()=>show('auth','recover'),0)}else if(ev==='SIGNED_IN'&&session&&!user){setTimeout(()=>startSession(session),0)}else if(ev==='SIGNED_OUT'&&user){user=null;mode='none';setTimeout(()=>show('home'),0)}});
+  if(recovering||/type=recovery/.test(hash)){show('auth','recover');return}
+  if(data.session){await startSession(data.session);if(/type=signup|type=email/.test(hash))flash('Email confirmed. Welcome!');return}}
+ else if(authMode==='demo'){const em=store.get('mint_demo_session'),u=em&&JSON.parse(store.get('mint_demo_'+em)||'null');if(u){user={id:'demo-'+em,email:em};mode='demo';setValues(u.budget);render();show('dashboard');flash('Local demo account — stored only in this browser, not secure.','warn');return}}}
+ catch(e){flash('Could not restore your session: '+(e.message||e)+'. You can log in again or continue as guest.','err')}
+ show('home')})();
+</script></body></html>
